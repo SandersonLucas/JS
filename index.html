@@ -141,20 +141,23 @@
     }
 
     @media (max-width: 768px) {
-      .produtos-grid {
-        flex-direction: column;
-        align-items: center;
-      }
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    justify-items: center;
+  }
 
-      .produto {
-        width: 80%;
-      }
+  .produto {
+    width: 95%;
+    max-width: 200px;
+  }
 
-      .topo {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
+  .topo {
+    flex-direction: column;
+    align-items: center;
+  }
+   }
   </style>
 </head>
 <body>
