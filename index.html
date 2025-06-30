@@ -285,7 +285,7 @@
           <i class="fa-solid fa-bag-shopping"></i> Alugar
         </button>
       </div>
-      
+  
       <!-- Copie mais produtos aqui conforme necessário -->
     </div>
 
@@ -298,40 +298,58 @@
   </div>
 
   <script>
-    function enviarPedido(produto, preco) {
-      let nome = document.getElementById('nome').value.trim();
-      let endereco = document.getElementById('endereco').value.trim();
-      let data = document.getElementById('data').value;
-
-      if (!nome || !endereco || !data) {
-        alert("Preencha todos os campos, incluindo a data.");
-        return;
-      }
-
-      fetch("https://script.google.com/macros/s/AKfycbzIDF7VrxzqbuRys9raDJ-DexT6kRtQCckY5b16dxNvPJiBMHQ4U1Xr0jUMcdr4eKoBjw/exec", {
-        method: "POST",
-        body: JSON.stringify({
-          nome: nome,
-          endereco: endereco,
-          data: data,
-          tema: produto
-        }),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      }).then(() => {
-        const confirmar = confirm("Pedido enviado! Deseja também ser direcionado ao WhatsApp?");
-        if (confirmar) {
-          let numero = "5587988664802";
-          let mensagem = `Olá! Quero alugar:%0A- ${produto}: R$ ${preco.toFixed(2)}%0A%0A`;
-          mensagem += `Nome: ${nome}%0A`;
-          mensagem += `Endereço: ${endereco}%0A`;
-          mensagem += `Data desejada: ${data}`;
-          window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
-        }
-      });
+  async function verificarDisponibilidade(dataDesejada) {
+    try {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbzkPyl11xP1_u3-LlkK6krkSMePtkMCBlzDdr92xpQOCiw9fWxxJMFyq-lUAWPcMWd4JQ/exec");
+      const result = await response.json();
+      return !result.datasReservadas.includes(dataDesejada);
+    } catch (err) {
+      console.error("Erro ao verificar disponibilidade:", err);
+      return true; // Se der erro, não bloqueia
     }
-  </script>
+  }
+
+  async function enviarPedido(produto, preco) {
+    let nome = document.getElementById('nome').value.trim();
+    let endereco = document.getElementById('endereco').value.trim();
+    let data = document.getElementById('data').value;
+
+    if (!nome || !endereco || !data) {
+      alert("Preencha todos os campos, incluindo a data.");
+      return;
+    }
+
+    const disponivel = await verificarDisponibilidade(data);
+
+    if (!disponivel) {
+      alert("A data selecionada já está reservada. Por favor, escolha outra.");
+      return;
+    }
+
+    fetch("https://script.google.com/macros/s/AKfycbzkPyl11xP1_u3-LlkK6krkSMePtkMCBlzDdr92xpQOCiw9fWxxJMFyq-lUAWPcMWd4JQ/exec", {
+      method: "POST",
+      body: JSON.stringify({
+        nome: nome,
+        endereco: endereco,
+        data: data,
+        tema: produto
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then(() => {
+      const confirmar = confirm("Pedido enviado! Deseja também ser direcionado ao WhatsApp?");
+      if (confirmar) {
+        let numero = "5587988664802";
+        let mensagem = `Olá! Quero alugar:%0A- ${produto}: R$ ${preco.toFixed(2)}%0A%0A`;
+        mensagem += `Nome: ${nome}%0A`;
+        mensagem += `Endereço: ${endereco}%0A`;
+        mensagem += `Data desejada: ${data}`;
+        window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
+      }
+    });
+  }
+</script>
 
 </body>
 </html>
