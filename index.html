@@ -32,10 +32,10 @@
     }
 
     .container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 10px;
-}
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
 
     .topo {
       position: fixed;
@@ -53,17 +53,17 @@
     }
 
     .contato {
-  background-color: #ffffff;
-  color: #333;
-  padding: 10px 0;
-  text-align: center;
-  margin-top: 64px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-  font-size: 14px;
-  width: 110vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+      background-color: #ffffff;
+      color: #333;
+      padding: 10px 0;
+      text-align: center;
+      margin-top: 64px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      font-size: 14px;
+      width: 110vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .topo h1 {
@@ -76,38 +76,38 @@
     }
 
     .produtos-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 8px;
-  margin-top: 20px;
-}
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 8px;
+      margin-top: 20px;
+    }
 
-.contato {
-  background-color: #ffffff;
-  color: #333;
-  padding: 14px 0;
-  text-align: center;
-  margin-top: 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  font-size: 14px;
-  width: 110vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  top: -10px;
-  border-radius: 8px;
-  z-index: 998;
-}
+    .contato {
+      background-color: #ffffff;
+      color: #333;
+      padding: 14px 0;
+      text-align: center;
+      margin-top: 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+      font-size: 14px;
+      width: 110vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -10px;
+      border-radius: 8px;
+      z-index: 998;
+    }
 
-@media (max-width: 600px) {
-  .contato {
-    width: 100vw;
-    padding: 10px 10px;
-    font-size: 13px;
-    top: -6px;
-    border-radius: 0;
-  }
-}
+    @media (max-width: 600px) {
+      .contato {
+        width: 100vw;
+        padding: 10px 10px;
+        font-size: 13px;
+        top: -6px;
+        border-radius: 0;
+      }
+    }
 
     .produto img {
       width: 100%;
@@ -136,17 +136,17 @@
       color: #666666;
     }
 
-   .nome-produto {
-  font-weight: 400; /* peso normal */
-  color: #333333;   /* cinza escuro */
-  margin: 0 0 4px 0;
-}
+    .nome-produto {
+      font-weight: 400;
+      color: #333333;
+      margin: 0 0 4px 0;
+    }
 
-.preco-produto {
-  font-weight: 600; /* mais forte */
-  color: #111111;   /* quase preto */
-  margin: 0;
-}
+    .preco-produto {
+      font-weight: 600;
+      color: #111111;
+      margin: 0;
+    }
     
     .dados-cliente {
       max-width: 400px;
@@ -165,15 +165,14 @@
       border-radius: 8px;
     }
 
-    /* Ajuste da barra superior em telas pequenas */
     @media (max-width: 768px) {
       .topo {
         flex-direction: column;
         align-items: center;
       }
       .no-break {
-  white-space: nowrap;
-}
+        white-space: nowrap;
+      }
     }
   </style>
 </head>
@@ -185,13 +184,13 @@
 
   <div class="contato">
     <div class="container">
-       <p class="no-break">
-      <i class="fa-solid fa-phone"></i> (87) 98866-4802 &nbsp; | &nbsp;
-      <i class="fa-solid fa-location-dot"></i> Dom Avelar, Petrolina/PE
-    </p>
+      <p class="no-break">
+        <i class="fa-solid fa-phone"></i> (87) 98866-4802 &nbsp; | &nbsp;
+        <i class="fa-solid fa-location-dot"></i> Dom Avelar, Petrolina/PE
+      </p>
     </div>
   </div>
-
+  
   <div class="container">
     <h2>Kits Pegue e Monte</h2>
 
@@ -290,7 +289,7 @@
       <!-- Copie mais produtos aqui conforme necessário -->
     </div>
 
-    <div class="dados-cliente">
+   <div class="dados-cliente">
       <h2>Seus Dados</h2>
       <input type="text" id="nome" placeholder="Seu nome"><br>
       <input type="text" id="endereco" placeholder="Endereço para entrega"><br>
@@ -300,38 +299,38 @@
 
   <script>
     function enviarPedido(produto, preco) {
-  let nome = document.getElementById('nome').value.trim();
-  let endereco = document.getElementById('endereco').value.trim();
-  let data = document.getElementById('data').value;
-  
-  if (!nome || !endereco || !data) {
-    alert("Preencha todos os campos, incluindo a data.");
-    return;
-  }
+      let nome = document.getElementById('nome').value.trim();
+      let endereco = document.getElementById('endereco').value.trim();
+      let data = document.getElementById('data').value;
 
-  fetch("https://script.google.com/macros/s/AKfycbwmDU2u6J0B6ofsYc9Ic9Guli78uqF1XMnO9DYeQ2sYFMGcqpjfc2ml4IodmVxMg0d96g/exec", {
-    method: "POST",
-    body: JSON.stringify({
-      nome: nome,
-      endereco: endereco,
-      data: data,
-      tema: produto
-    }),
-    headers: {
-      "Content-Type": "application/json"
+      if (!nome || !endereco || !data) {
+        alert("Preencha todos os campos, incluindo a data.");
+        return;
+      }
+
+      fetch("https://script.google.com/macros/s/AKfycbwmDU2u6J0B6ofsYc9Ic9Guli78uqF1XMnO9DYeQ2sYFMGcqpjfc2ml4IodmVxMg0d96g/exec", {
+        method: "POST",
+        body: JSON.stringify({
+          nome: nome,
+          endereco: endereco,
+          data: data,
+          tema: produto
+        }),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(() => {
+        const confirmar = confirm("Pedido enviado! Deseja também ser direcionado ao WhatsApp?");
+        if (confirmar) {
+          let numero = "5587988664802";
+          let mensagem = `Olá! Quero alugar:%0A- ${produto}: R$ ${preco.toFixed(2)}%0A%0A`;
+          mensagem += `Nome: ${nome}%0A`;
+          mensagem += `Endereço: ${endereco}%0A`;
+          mensagem += `Data desejada: ${data}`;
+          window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
+        }
+      });
     }
-  }).then(() => {
-    const confirmar = confirm("Pedido enviado! Deseja também ser direcionado ao WhatsApp?");
-    if (confirmar) {
-      let numero = "5587988664802";
-      let mensagem = `Olá! Quero alugar:%0A- ${produto}: R$ ${preco.toFixed(2)}%0A%0A`;
-      mensagem += `Nome: ${nome}%0A`;
-      mensagem += `Endereço: ${endereco}%0A`;
-      mensagem += `Data desejada: ${data}`;
-      window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
-    }
-  });
-}
   </script>
 
 </body>
