@@ -294,33 +294,44 @@
       <h2>Seus Dados</h2>
       <input type="text" id="nome" placeholder="Seu nome"><br>
       <input type="text" id="endereco" placeholder="Endereço para entrega"><br>
-      <input type="text" id="pagamento" placeholder="Forma de pagamento (ex: dinheiro, pix...)"><br>
+      <input type="date" id="data" placeholder="Data do evento"><br>
     </div>
   </div>
 
   <script>
     function enviarPedido(produto, preco) {
-      let nome = document.getElementById('nome').value.trim();
-      let endereco = document.getElementById('endereco').value.trim();
-      let pagamento = document.getElementById('pagamento').value.trim();
+  let nome = document.getElementById('nome').value.trim();
+  let endereco = document.getElementById('endereco').value.trim();
+  let data = document.getElementById('data').value;
+  
+  if (!nome || !endereco || !pagamento || !data) {
+    alert("Preencha todos os campos, incluindo a data.");
+    return;
+  }
 
-      if (!nome || !endereco || !pagamento) {
-        alert("Preencha seu nome, endereço e forma de pagamento antes de continuar.");
-        return;
-      }
-
-      const confirmar = confirm("Deseja ser direcionado ao WhatsApp para finalizar o pedido?");
-      if (confirmar) {
-        let numero = "5587988664802";
-        let mensagem = `Olá! Quero alugar:%0A- ${produto}: R$ ${preco.toFixed(2)}%0A%0A`;
-        mensagem += `Nome: ${nome}%0A`;
-        mensagem += `Endereço: ${endereco}%0A`;
-        mensagem += `Forma de pagamento: ${pagamento}`;
-
-        let link = `https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`;
-        window.open(link, '_blank');
-      }
+  fetch("https://script.google.com/macros/s/AKfycbwmDU2u6J0B6ofsYc9Ic9Guli78uqF1XMnO9DYeQ2sYFMGcqpjfc2ml4IodmVxMg0d96g/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      nome: nome,
+      endereco: endereco,
+      data: data,
+      tema: produto
+    }),
+    headers: {
+      "Content-Type": "application/json"
     }
+  }).then(() => {
+    const confirmar = confirm("Pedido enviado! Deseja também ser direcionado ao WhatsApp?");
+    if (confirmar) {
+      let numero = "5587988664802";
+      let mensagem = `Olá! Quero alugar:%0A- ${produto}: R$ ${preco.toFixed(2)}%0A%0A`;
+      mensagem += `Nome: ${nome}%0A`;
+      mensagem += `Endereço: ${endereco}%0A`;
+      mensagem += `Data desejada: ${data}`;
+      window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
+    }
+  });
+}
   </script>
 
 </body>
