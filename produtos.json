@@ -1,0 +1,77 @@
+[
+  {
+    "nome": "Stitch e Angel",
+    "preco": 100,
+    "imagem": "imagens/stitch.e.angel.webp"
+  },
+  {
+    "nome": "Stitch Rosa",
+    "preco": 100,
+    "imagem": "imagens/stitch.rosa.webp"
+  },
+  {
+    "nome": "Stitch Azul",
+    "preco": 100,
+    "imagem": "imagens/stitch.azul.com.itens.rosas.webp"
+  },
+  {
+    "nome": "Azul Floral",
+    "preco": 100,
+    "imagem": "imagens/azul.floral.webp"
+  },
+  {
+    "nome": "Baby Shark",
+    "preco": 100,
+    "imagem": "imagens/baby.shark.webp"
+  },
+  {
+    "nome": "Barbie",
+    "preco": 100,
+    "imagem": "imagens/barbie.webp"
+  },
+  {
+    "nome": "Batizado",
+    "preco": 100,
+    "imagem": "imagens/batizado.com.nome.webp"
+  },
+  {
+    "nome": "Batizado | Eucaristia",
+    "preco": 100,
+    "imagem": "imagens/batizado.eucaristia.webp"
+  },
+  {
+    "nome": "Batman",
+    "preco": 100,
+    "imagem": "imagens/batman.webp"
+  },
+  {
+    "nome": "Bento e Totó",
+    "preco": 100,
+    "imagem": "imagens/bento.e.toto.webp"
+  },
+  {
+    "nome": "Bolofofos Azul",
+    "preco": 100,
+    "imagem": "imagens/bolofofos.azul.webp"
+  },
+  {
+    "nome": "Bolofofos Rosa",
+    "preco": 100,
+    "imagem": "imagens/bolofofos.rosa.webp"
+  },
+  {
+    "nome": "Borboleta Roxa",
+    "preco": 100,
+    "imagem": "imagens/borboleta.roxa.webp"
+  },
+  {
+    "nome": "Boteco",
+    "preco": 100,
+    "imagem": "imagens/boteco.webp"
+  },
+  {
+    "nome": "Branca de Neve",
+    "preco": 100,
+    "imagem": "imagens/branca.de.neve.webp"
+  }
+]
