@@ -294,7 +294,8 @@
       <h2>Seus Dados</h2>
       <input type="text" id="nome" placeholder="Seu nome"><br>
       <input type="text" id="endereco" placeholder="Endereço para entrega"><br>
-      <input type="text" id="pagamento" placeholder="Forma de pagamento (ex: dinheiro, pix...)"><br>
+      <label for="dataEvento">Data do evento:</label>
+      <input type="date" id="dataEvento" required><br>
     </div>
   </div>
 
@@ -302,12 +303,12 @@
     function enviarPedido(produto, preco) {
       let nome = document.getElementById('nome').value.trim();
       let endereco = document.getElementById('endereco').value.trim();
-      let pagamento = document.getElementById('pagamento').value.trim();
+     let dataEvento = document.getElementById('dataEvento').value;
 
-      if (!nome || !endereco || !pagamento) {
-        alert("Preencha seu nome, endereço e forma de pagamento antes de continuar.");
-        return;
-      }
+  if (!nome || !endereco || !dataEvento) {
+     alert("Preencha seu nome, endereço e a data do evento antes de continuar.");
+  return;
+}
 
       const confirmar = confirm("Deseja ser direcionado ao WhatsApp para finalizar o pedido?");
       if (confirmar) {
@@ -315,8 +316,8 @@
         let mensagem = `Olá! Quero alugar:%0A- ${produto}: R$ ${preco.toFixed(2)}%0A%0A`;
         mensagem += `Nome: ${nome}%0A`;
         mensagem += `Endereço: ${endereco}%0A`;
-        mensagem += `Forma de pagamento: ${pagamento}`;
-
+       mensagem += `Data do evento: ${dataEvento}`;
+        
         let link = `https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`;
         window.open(link, '_blank');
       }
