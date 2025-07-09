@@ -52,6 +52,33 @@
       z-index: 1000;
     }
 
+    #fechar-btn {
+  display: none; /* escondido por padrão em telas grandes */
+}
+
+@media (max-width: 768px) {
+  #fechar-btn {
+    display: block;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    color: #333;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
+    z-index: 10000;
+  }
+
+  #fechar-btn:hover {
+    background-color: #f0f0f0;
+  }
+}
+
 #modal {
   position: fixed;
   top: 0;
@@ -428,12 +455,17 @@ function ampliarImagem(src) {
 function fecharModal() {
   document.getElementById('modal').style.display = 'none';
     }
+
+    function fecharModal(event) {
+  if (event) event.stopPropagation();
+  document.getElementById('modal').style.display = 'none';
+}
       
   </script>
 
- <div id="modal" style="display:none;">
-  <button id="fechar-btn" onclick="fecharModal()">✕</button>
+<div id="modal" style="display:none;" onclick="fecharModal()">
   <img id="imagem-ampliada" src="" alt="Imagem ampliada">
+  <button id="fechar-btn" onclick="fecharModal(event)">Fechar</button>
 </div>
   
 </body>
