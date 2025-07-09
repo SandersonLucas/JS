@@ -52,10 +52,6 @@
       z-index: 1000;
     }
 
-    #fechar-btn {
-  display: none; /* escondido por padrão em telas grandes */
-}
-
 @media (max-width: 768px) {
   #fechar-btn {
     display: block;
@@ -101,6 +97,7 @@
 }
 
     #fechar-btn {
+  display: none;
   position: absolute;
   top: 12px;
   left: 12px;
@@ -460,7 +457,12 @@ function fecharModal() {
   if (event) event.stopPropagation();
   document.getElementById('modal').style.display = 'none';
 }
-      
+
+  window.onload = function () {
+    const hoje = new Date().toISOString().split("T")[0];
+    document.getElementById("dataEvento").setAttribute("min", hoje);
+  };
+
   </script>
 
 <div id="modal" style="display:none;" onclick="fecharModal()">
