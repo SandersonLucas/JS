@@ -36,48 +36,6 @@
   margin: 0 auto;
   padding: 0 10px;
 }
-
-body {
-  background-color: #fff;
-  color: #000;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-/* Modo escuro automático */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #121212;
-    color: #e0e0e0;
-  }
-
-  .container {
-    background-color: #1e1e1e;
-    border: 1px solid #333;
-  }
-
-  input,
-  select,
-  button {
-    background-color: #2c2c2c;
-    color: #fff;
-    border: 1px solid #444;
-  }
-
-  input::placeholder,
-  select {
-    color: #aaa;
-  }
-
-  button {
-    background-color: #333;
-  }
-
-  button:hover {
-    background-color: #444;
-  }
-}
     
     .topo {
       position: fixed;
@@ -309,6 +267,8 @@ body {
   <div class="container">
     <h2>Kits Pegue e Monte</h2>
 
+    <input type="text" id="busca-produto" placeholder="Buscar produto..." style="width: 100%; padding: 10px; margin-bottom: 12px; border-radius: 8px; border: 1px solid #ccc;">
+
     <div class="produtos-grid">
       <!-- Exemplo de produto -->
       <div class="produto">
@@ -505,6 +465,20 @@ function fecharModal() {
     document.getElementById("dataEvento").setAttribute("min", hoje);
   };
 
+document.getElementById('busca-produto').addEventListener('input', function() {
+  const filtro = this.value.toLowerCase();
+  const produtos = document.querySelectorAll('.produtos-grid .produto');
+
+  produtos.forEach(produto => {
+    const nome = produto.querySelector('.nome-produto').textContent.toLowerCase();
+    if (nome.includes(filtro)) {
+      produto.style.display = 'block';
+    } else {
+      produto.style.display = 'none';
+    }
+  });
+});
+    
   </script>
 
 <div id="modal" style="display:none;" onclick="fecharModal()">
