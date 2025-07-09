@@ -350,7 +350,8 @@
         let link = `https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`;
         window.open(link, '_blank');
       }
-
+    }
+    
       // Quando clica na imagem do produto
 function ampliarImagem(src) {
   const modal = document.getElementById('modal');
@@ -362,9 +363,8 @@ function ampliarImagem(src) {
 // Quando clica fora da imagem (fecha o modal)
 function fecharModal() {
   document.getElementById('modal').style.display = 'none';
-}
-
     }
+      
   </script>
 
   <div id="modal" style="display:none;" onclick="fecharModal()">
