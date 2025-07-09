@@ -18,6 +18,9 @@ window.onload = function () {
   fetch('produtos.json')
     .then(response => response.json())
     .then(produtos => {
+        // ✅ Ordena os produtos por nome em ordem alfabética
+      produtos.sort((a, b) => a.nome.localeCompare(b.nome));
+      
       const container = document.querySelector('.produtos-grid');
       container.innerHTML = '';
 
