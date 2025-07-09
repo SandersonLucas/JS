@@ -59,4 +59,30 @@ document.getElementById('busca-produto').addEventListener('input', function() {
     }
   });
 });
+
+   // Função para carregar o JSON e criar os cards de produto
+  fetch('produtos.json')
+    .then(response => response.json())
+    .then(produtos => {
+      const container = document.getElementById('produtos-grid');
+      container.innerHTML = ''; // limpa conteúdo
+      
+      produtos.forEach(produto => {
+        const div = document.createElement('div');
+        div.classList.add('produto');
+        
+        div.innerHTML = `
+          <img src="${produto.imagem}" alt="${produto.nome}" onclick="ampliarImagem('${produto.imagem}')">
+          <p class="nome-produto">${produto.nome}</p>
+          <p class="preco-produto">R$ ${produto.preco.toFixed(2)}</p>
+          <button onclick="enviarPedido('${produto.nome}', ${produto.preco})">
+            <i class="fa-solid fa-bag-shopping"></i> Alugar
+          </button>
+        `;
+        
+        container.appendChild(div);
+      });
+    })
+    .catch(error => console.error('Erro ao carregar produtos:', error));
+}
 }
