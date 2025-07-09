@@ -73,10 +73,10 @@
     "nome": "Branca de Neve",
     "preco": 100,
     "imagem": "imagens/branca.de.neve.webp"
-  }
+  },
    {
     "nome": "Chá Revelação",
     "preco": 100,
     "imagem": "imagens/cha.revelação.webp"
-  }
+  },
 ]
