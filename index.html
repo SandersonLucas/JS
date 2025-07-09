@@ -72,6 +72,25 @@
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
+
+    #fechar-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border: none;
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+#fechar-btn:hover {
+  background-color: #eee;
+}
     
     .contato {
   background-color: #ffffff;
@@ -367,9 +386,10 @@ function fecharModal() {
       
   </script>
 
-  <div id="modal" style="display:none;" onclick="fecharModal()">
+ <div id="modal" style="display:none;">
+  <button id="fechar-btn" onclick="fecharModal()">✕</button>
   <img id="imagem-ampliada" src="" alt="Imagem ampliada">
 </div>
-
+  
 </body>
 </html>
