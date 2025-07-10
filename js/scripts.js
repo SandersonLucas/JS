@@ -49,16 +49,6 @@ window.onload = function () {
     .catch(error => console.error('Erro ao carregar produtos:', error));
 };
 
-function enviarPedido(produto, preco) {
-  const nome = document.getElementById('nome').value.trim();
-  const endereco = document.getElementById('endereco').value.trim();
-  const dataEvento = document.getElementById('dataEvento').value;
-
-  if (!nome || !endereco || !dataEvento) {
-    alert("Preencha seu nome, endereço e a data do evento antes de continuar.");
-    return;
-  }
-
   const htmlResumo = `
     <html>
       <head>
