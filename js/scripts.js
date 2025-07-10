@@ -42,12 +42,14 @@ window.onload = function () {
 
           // Mostra mensagem de aviso
           const aviso = document.getElementById('mensagem-aviso');
-          aviso.textContent = 'Por favor, preencha seus dados para continuar.';
+         aviso.textContent = 'Por favor, preencha seus dados para continuar.';
+        aviso.style.display = 'block';
 
           // Esconde após 5 segundos
-          setTimeout(() => {
-            aviso.textContent = '';
-          }, 5000);
+         setTimeout(() => {
+       aviso.textContent = '';
+       aviso.style.display = 'none';
+       }, 5000);
 
           // Chama função para processar pedido
           enviarPedido(produto.nome, produto.preco);
