@@ -36,13 +36,11 @@ window.onload = function () {
         // Botão "Alugar" com evento
         const botao = document.createElement('button');
         botao.innerHTML = '<i class="fa-solid fa-bag-shopping"></i> Alugar';
-        botao.addEventListener('click', () => {
-          // Rola até o formulário (opcional)
-          document.getElementById('formulario-dados').scrollIntoView({ behavior: 'smooth' });
+       botao.addEventListener('click', () => {
+       const url = `pedido.html?produto=${encodeURIComponent(produto.nome)}&preco=${encodeURIComponent(produto.preco)}`;
+       window.open(url, '_blank');
+       });
 
-          // Envia pedido abrindo nova aba
-          enviarPedido(produto.nome, produto.preco);
-        });
 
         div.appendChild(botao);
         container.appendChild(div);
