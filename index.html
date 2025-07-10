@@ -19,6 +19,19 @@
     button:hover {
       background: #219150;
     }
+    .botao-voltar {
+      display: block;
+      max-width: 400px;
+      margin: 0 auto 20px;
+      text-align: center;
+      text-decoration: none;
+      color: #555;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .botao-voltar:hover {
+      color: #27ae60;
+    }
   </style>
 </head>
 <body>
@@ -42,25 +55,29 @@
     <button type="submit">Confirmar e enviar para WhatsApp</button>
   </form>
 
+  <a href="index.html" class="botao-voltar">← Voltar ao Catálogo</a>
+
   <script>
-    // Pega parâmetros da URL
+    // Função para pegar parâmetro da URL
     function getQueryParam(param) {
       const params = new URLSearchParams(window.location.search);
       return params.get(param);
     }
 
-    // Mostra produto e preço
-    const produto = getQueryParam('produto');
-    const preco = getQueryParam('preco');
+    // Captura dados do produto e preço, com fallback
+    const produto = getQueryParam('produto') || 'Produto não especificado';
+    const precoParam = getQueryParam('preco');
+    const preco = precoParam ? parseFloat(precoParam) : 0;
 
+    // Exibe resumo do pedido
     const resumoDiv = document.getElementById('resumo-produto');
-    resumoDiv.innerHTML = `<p><strong>Produto:</strong> ${produto}</p><p><strong>Preço:</strong> R$ ${preco}</p>`;
+    resumoDiv.innerHTML = `<p><strong>Produto:</strong> ${produto}</p><p><strong>Preço:</strong> R$ ${preco.toFixed(2)}</p>`;
 
-    // Data mínima hoje
+    // Define data mínima para o campo dataEvento
     const hoje = new Date().toISOString().split('T')[0];
     document.getElementById('dataEvento').setAttribute('min', hoje);
 
-    // Envia mensagem WhatsApp ao submeter o form
+    // Ao enviar o formulário
     document.getElementById('form-pedido').addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -73,12 +90,18 @@
         return;
       }
 
-      const mensagem = `Olá! Quero alugar:%0A- ${encodeURIComponent(produto)}: R$ ${preco}%0A%0ANome: ${encodeURIComponent(nome)}%0AEndereço: ${encodeURIComponent(endereco)}%0AData do evento: ${encodeURIComponent(dataEvento)}`;
+      // Monta a mensagem completa e codificada para WhatsApp
+      const textoMensagem =
+        `Olá! Quero alugar:\n- ${produto}: R$ ${preco.toFixed(2)}\n\n` +
+        `Nome: ${nome}\nEndereço: ${endereco}\nData do evento: ${dataEvento}`;
+
+      const mensagem = encodeURIComponent(textoMensagem);
 
       const numero = '5587988664802';
 
       const urlWhatsapp = `https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`;
 
+      // Abre WhatsApp em nova aba
       window.open(urlWhatsapp, '_blank');
     });
   </script>
