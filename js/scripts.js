@@ -4,7 +4,7 @@ window.onload = function () {
   document.getElementById("dataEvento").setAttribute("min", hoje);
 
   // Campo de busca
-  document.getElementById('busca-produto').addEventListener('input', function() {
+  document.getElementById('busca-produto').addEventListener('input', function () {
     const filtro = this.value.toLowerCase();
     const produtos = document.querySelectorAll('.produtos-grid .produto');
 
@@ -14,34 +14,53 @@ window.onload = function () {
     });
   });
 
-  // Função para carregar produtos do JSON
+  // Carrega produtos
   fetch('produtos.json')
     .then(response => response.json())
     .then(produtos => {
-        // ✅ Ordena os produtos por nome em ordem alfabética
       produtos.sort((a, b) => a.nome.localeCompare(b.nome));
-      
+
       const container = document.querySelector('.produtos-grid');
       container.innerHTML = '';
 
       produtos.forEach(produto => {
         const div = document.createElement('div');
         div.classList.add('produto');
+
         div.innerHTML = `
           <img src="${produto.imagem}" alt="${produto.nome}" onclick="ampliarImagem('${produto.imagem}')">
           <p class="nome-produto">${produto.nome}</p>
           <p class="preco-produto">R$ ${produto.preco.toFixed(2)}</p>
-          <button onclick="enviarPedido('${produto.nome}', ${produto.preco})">
-            <i class="fa-solid fa-bag-shopping"></i> Alugar
-          </button>
         `;
+
+        // 🟢 BOTÃO "ALUGAR" COM EVENTO
+        const botao = document.createElement('button');
+        botao.innerHTML = '<i class="fa-solid fa-bag-shopping"></i> Alugar';
+        botao.addEventListener('click', () => {
+          // Rola até o formulário
+          document.getElementById('formulario-dados').scrollIntoView({ behavior: 'smooth' });
+
+          // Mostra mensagem de aviso
+          const aviso = document.getElementById('mensagem-aviso');
+          aviso.textContent = 'Por favor, preencha seus dados para continuar.';
+
+          // Esconde após 5 segundos
+          setTimeout(() => {
+            aviso.textContent = '';
+          }, 5000);
+
+          // Chama função para processar pedido
+          enviarPedido(produto.nome, produto.preco);
+        });
+
+        div.appendChild(botao);
         container.appendChild(div);
       });
     })
     .catch(error => console.error('Erro ao carregar produtos:', error));
 };
 
-// Demais funções fora do onload (correto)
+// 🔄 ENVIO DO PEDIDO PARA WHATSAPP
 function enviarPedido(produto, preco) {
   const nome = document.getElementById('nome').value.trim();
   const endereco = document.getElementById('endereco').value.trim();
@@ -61,6 +80,7 @@ function enviarPedido(produto, preco) {
   }
 }
 
+// 🔍 AMPLIAR IMAGEM
 function ampliarImagem(src) {
   const modal = document.getElementById('modal');
   const imgAmpliada = document.getElementById('imagem-ampliada');
@@ -68,6 +88,7 @@ function ampliarImagem(src) {
   modal.style.display = 'flex';
 }
 
+// ❌ FECHAR MODAL
 function fecharModal(event) {
   if (event) event.stopPropagation();
   document.getElementById('modal').style.display = 'none';
