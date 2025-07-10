@@ -12,29 +12,25 @@
       padding: 40px 20px;
       color: #2c3e50;
     }
-
     .container {
       max-width: 400px;
       margin: auto;
-      background: #ffffff;
+      background: #fff;
       padding: 24px;
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-
     h1 {
       text-align: center;
       margin-bottom: 24px;
       font-size: 24px;
       color: #27ae60;
     }
-
     label {
       font-weight: 600;
       margin-top: 12px;
       display: block;
     }
-
     input {
       width: 100%;
       padding: 10px;
@@ -44,7 +40,6 @@
       border-radius: 8px;
       font-size: 16px;
     }
-
     button {
       width: 100%;
       background-color: #25d366;
@@ -57,11 +52,9 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
-
     button:hover {
       background-color: #1ebe5d;
     }
-
     .botao-voltar {
       display: block;
       text-align: center;
@@ -71,43 +64,39 @@
       font-weight: 600;
       transition: color 0.3s;
     }
-
     .botao-voltar:hover {
       color: #27ae60;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container" role="main">
     <h1>Finalizar Pedido</h1>
-    <form id="formulario">
+    <form id="formulario" novalidate>
       <label for="nome">Seu nome</label>
-      <input type="text" id="nome" name="nome" required />
+      <input type="text" id="nome" name="nome" required autocomplete="name" />
 
       <label for="endereco">Endereço do Evento</label>
-      <input type="text" id="endereco" name="endereco" required />
+      <input type="text" id="endereco" name="endereco" required autocomplete="street-address" />
 
       <label for="dataEvento">Data do evento</label>
       <input type="date" id="dataEvento" name="dataEvento" required />
 
-      <button type="submit">Confirmar e Enviar para o WhatsApp</button>
+      <button type="submit" aria-label="Confirmar e Enviar para o WhatsApp">Confirmar e Enviar para o WhatsApp</button>
     </form>
-    <a href="index.html" class="botao-voltar">← Voltar ao Catálogo</a>
+    <a href="index.html" class="botao-voltar" role="link" aria-label="Voltar ao catálogo">← Voltar ao Catálogo</a>
   </div>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
-      // Define data mínima para o campo dataEvento
       const hoje = new Date().toISOString().split("T")[0];
       document.getElementById("dataEvento").setAttribute("min", hoje);
 
-      // Captura parâmetros da URL (produto e preco)
       const params = new URLSearchParams(window.location.search);
       const produto = params.get("produto") || "Produto não especificado";
       const precoParam = params.get("preco");
       const preco = precoParam ? parseFloat(precoParam) : 0;
 
-      // Evento submit do formulário
       document.getElementById("formulario").addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -122,14 +111,12 @@
 
         const numero = "5587988664802";
 
-        // Monta a mensagem para WhatsApp
         const textoMensagem =
           `Olá! Quero alugar:\n- ${produto}: R$ ${preco.toFixed(2)}\n\n` +
           `Nome: ${nome}\nEndereço: ${endereco}\nData do evento: ${data}`;
 
         const mensagem = encodeURIComponent(textoMensagem);
 
-        // Abre WhatsApp em nova aba
         window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
       });
     });
