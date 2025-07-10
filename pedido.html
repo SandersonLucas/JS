@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Preencha seus dados - JS Eventos</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Finalizar Pedido - JS Eventos</title>
   <style>
     body {
       font-family: 'Fira Sans', sans-serif;
@@ -55,6 +55,7 @@
       font-weight: bold;
       border-radius: 8px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     button:hover {
@@ -62,19 +63,18 @@
     }
 
     .botao-voltar {
-  display: block;
-  text-align: center;
-  margin-top: 16px;
-  text-decoration: none;
-  color: #555;
-  font-weight: 600;
-  transition: color 0.3s;
-}
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      text-decoration: none;
+      color: #555;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
 
-.botao-voltar:hover {
-  color: #27ae60;
-}
-
+    .botao-voltar:hover {
+      color: #27ae60;
+    }
   </style>
 </head>
 <body>
@@ -82,45 +82,56 @@
     <h1>Finalizar Pedido</h1>
     <form id="formulario">
       <label for="nome">Seu nome</label>
-      <input type="text" id="nome" required>
+      <input type="text" id="nome" name="nome" required />
 
       <label for="endereco">Endereço do Evento</label>
-      <input type="text" id="endereco" required>
+      <input type="text" id="endereco" name="endereco" required />
 
       <label for="dataEvento">Data do evento</label>
-      <input type="date" id="dataEvento" required>
+      <input type="date" id="dataEvento" name="dataEvento" required />
 
       <button type="submit">Confirmar e Enviar para o WhatsApp</button>
-      <a href="index.html" class="botao-voltar">← Voltar ao Catálogo</a>
     </form>
+    <a href="index.html" class="botao-voltar">← Voltar ao Catálogo</a>
   </div>
 
   <script>
-    // Define data mínima
-    const hoje = new Date().toISOString().split("T")[0];
-    document.getElementById("dataEvento").setAttribute("min", hoje);
+    window.addEventListener('DOMContentLoaded', () => {
+      // Define data mínima para o campo dataEvento
+      const hoje = new Date().toISOString().split("T")[0];
+      document.getElementById("dataEvento").setAttribute("min", hoje);
 
-    // Extrai produto e preço da URL
-    const params = new URLSearchParams(window.location.search);
-    const produto = params.get("produto");
-    const preco = parseFloat(params.get("preco"));
+      // Captura parâmetros da URL (produto e preco)
+      const params = new URLSearchParams(window.location.search);
+      const produto = params.get("produto") || "Produto não especificado";
+      const precoParam = params.get("preco");
+      const preco = precoParam ? parseFloat(precoParam) : 0;
 
-    // Ao enviar o formulário
-    document.getElementById("formulario").addEventListener("submit", function(e) {
-      e.preventDefault();
+      // Evento submit do formulário
+      document.getElementById("formulario").addEventListener("submit", (e) => {
+        e.preventDefault();
 
-      const nome = document.getElementById("nome").value.trim();
-      const endereco = document.getElementById("endereco").value.trim();
-      const data = document.getElementById("dataEvento").value;
+        const nome = document.getElementById("nome").value.trim();
+        const endereco = document.getElementById("endereco").value.trim();
+        const data = document.getElementById("dataEvento").value;
 
-      if (!nome || !endereco || !data) {
-        alert("Preencha todos os campos!");
-        return;
-      }
+        if (!nome || !endereco || !data) {
+          alert("Por favor, preencha todos os campos.");
+          return;
+        }
 
-      const numero = "5587988664802";
-      const mensagem = `Olá! Quero alugar:%0A- ${encodeURIComponent(produto)}: R$ ${preco.toFixed(2)}%0A%0ANome: ${encodeURIComponent(nome)}%0AEndereço: ${encodeURIComponent(endereco)}%0AData do evento: ${encodeURIComponent(data)}`;
-      window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
+        const numero = "5587988664802";
+
+        // Monta a mensagem para WhatsApp
+        const textoMensagem =
+          `Olá! Quero alugar:\n- ${produto}: R$ ${preco.toFixed(2)}\n\n` +
+          `Nome: ${nome}\nEndereço: ${endereco}\nData do evento: ${data}`;
+
+        const mensagem = encodeURIComponent(textoMensagem);
+
+        // Abre WhatsApp em nova aba
+        window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
+      });
     });
   </script>
 </body>
