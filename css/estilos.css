@@ -234,16 +234,3 @@
   white-space: nowrap;
 }
     }
-
-#mensagem-aviso {
-  background-color: #ffe0e0;
-  color: #b30000;
-  padding: 12px;
-  border: 1px solid #ffcccc;
-  border-radius: 8px;
-  font-weight: 600;
-  text-align: center;
-  margin: 10px 0 16px;
-  display: none; /* começa oculto, será exibido via JS */
-}
-
