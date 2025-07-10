@@ -33,14 +33,14 @@ window.onload = function () {
           <p class="preco-produto">R$ ${produto.preco.toFixed(2)}</p>
         `;
 
-        // 🟢 BOTÃO "ALUGAR" COM EVENTO
+        // Botão "Alugar" com evento
         const botao = document.createElement('button');
         botao.innerHTML = '<i class="fa-solid fa-bag-shopping"></i> Alugar';
         botao.addEventListener('click', () => {
-          // Rola até o formulário
+          // Rola até o formulário (opcional)
           document.getElementById('formulario-dados').scrollIntoView({ behavior: 'smooth' });
 
-          // Chama função para processar pedido
+          // Envia pedido abrindo nova aba
           enviarPedido(produto.nome, produto.preco);
         });
 
@@ -61,7 +61,6 @@ function enviarPedido(produto, preco) {
     return;
   }
 
-  // Monta o HTML para a nova aba
   const htmlResumo = `
     <html>
       <head>
@@ -105,13 +104,16 @@ function enviarPedido(produto, preco) {
     </html>
   `;
 
-  // Abre nova aba e escreve o conteúdo
   const novaJanela = window.open('', '_blank');
+  if (!novaJanela) {
+    alert('Pop-up bloqueado! Por favor, permita pop-ups para este site.');
+    return;
+  }
   novaJanela.document.write(htmlResumo);
   novaJanela.document.close();
 }
 
-// 🔍 AMPLIAR IMAGEM
+// Funções para modal de imagem (sem alteração)
 function ampliarImagem(src) {
   const modal = document.getElementById('modal');
   const imgAmpliada = document.getElementById('imagem-ampliada');
@@ -119,7 +121,6 @@ function ampliarImagem(src) {
   modal.style.display = 'flex';
 }
 
-// ❌ FECHAR MODAL
 function fecharModal(event) {
   if (event) event.stopPropagation();
   document.getElementById('modal').style.display = 'none';
