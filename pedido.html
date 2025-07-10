@@ -1,105 +1,111 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finalizar Pedido - JS Eventos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preencha seus dados - JS Eventos</title>
   <style>
     body {
       font-family: 'Fira Sans', sans-serif;
       background-color: #f0f4f8;
+      margin: 0;
+      padding: 40px 20px;
       color: #2c3e50;
-      padding: 30px;
-      max-width: 500px;
+    }
+
+    .container {
+      max-width: 400px;
       margin: auto;
-    }
-    h1 {
-      color: #27ae60;
-      text-align: center;
-    }
-    .card {
-      background-color: #fff;
-      padding: 20px;
+      background: #ffffff;
+      padding: 24px;
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: 600;
+
+    h1 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 24px;
+      color: #27ae60;
     }
+
+    label {
+      font-weight: 600;
+      margin-top: 12px;
+      display: block;
+    }
+
     input {
       width: 100%;
       padding: 10px;
       margin-top: 6px;
+      margin-bottom: 16px;
       border: 1px solid #ccc;
       border-radius: 8px;
+      font-size: 16px;
     }
-    #finalizarBtn {
-      margin-top: 20px;
+
+    button {
       width: 100%;
       background-color: #25d366;
       color: white;
-      padding: 12px;
       border: none;
-      border-radius: 8px;
+      padding: 12px;
       font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
       cursor: pointer;
     }
-    #finalizarBtn:hover {
+
+    button:hover {
       background-color: #1ebe5d;
     }
   </style>
 </head>
 <body>
-  <h1>Finalizar Pedido</h1>
+  <div class="container">
+    <h1>Finalizar Pedido</h1>
+    <form id="formulario">
+      <label for="nome">Seu nome</label>
+      <input type="text" id="nome" required>
 
-  <div class="card">
-    <p><strong>Produto:</strong> <span id="produto-info">...</span></p>
-    <p><strong>Preço:</strong> <span id="preco-info">...</span></p>
+      <label for="endereco">Endereço do Evento</label>
+      <input type="text" id="endereco" required>
 
-    <label for="nome">Seu nome:</label>
-    <input type="text" id="nome" placeholder="Seu nome">
+      <label for="dataEvento">Data do evento</label>
+      <input type="date" id="dataEvento" required>
 
-    <label for="endereco">Endereço do Evento:</label>
-    <input type="text" id="endereco" placeholder="Endereço do Evento">
-
-    <label for="dataEvento">Data do Evento:</label>
-    <input type="date" id="dataEvento">
-
-    <button id="finalizarBtn">Finalizar Pedido no WhatsApp</button>
+      <button type="submit">Confirmar e Enviar para o WhatsApp</button>
+    </form>
   </div>
 
   <script>
-    window.onload = function () {
-      const urlParams = new URLSearchParams(window.location.search);
-      const produto = urlParams.get("produto");
-      const preco = urlParams.get("preco");
+    // Define data mínima
+    const hoje = new Date().toISOString().split("T")[0];
+    document.getElementById("dataEvento").setAttribute("min", hoje);
 
-      document.getElementById("produto-info").textContent = produto || "Produto não informado";
-      document.getElementById("preco-info").textContent = preco ? "R$ " + parseFloat(preco).toFixed(2) : "Preço não informado";
+    // Extrai produto e preço da URL
+    const params = new URLSearchParams(window.location.search);
+    const produto = params.get("produto");
+    const preco = parseFloat(params.get("preco"));
 
-      // Define data mínima para hoje
-      const hoje = new Date().toISOString().split("T")[0];
-      document.getElementById("dataEvento").setAttribute("min", hoje);
+    // Ao enviar o formulário
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
 
-      document.getElementById("finalizarBtn").addEventListener("click", function () {
-        const nome = document.getElementById("nome").value.trim();
-        const endereco = document.getElementById("endereco").value.trim();
-        const dataEvento = document.getElementById("dataEvento").value;
+      const nome = document.getElementById("nome").value.trim();
+      const endereco = document.getElementById("endereco").value.trim();
+      const data = document.getElementById("dataEvento").value;
 
-        if (!nome || !endereco || !dataEvento) {
-          alert("Por favor, preencha todos os campos.");
-          return;
-        }
+      if (!nome || !endereco || !data) {
+        alert("Preencha todos os campos!");
+        return;
+      }
 
-        const mensagem = `Olá! Quero alugar:%0A- ${produto}: R$ ${parseFloat(preco).toFixed(2)}%0A%0A` +
-                         `Nome: ${nome}%0AEndereço: ${endereco}%0AData do evento: ${dataEvento}`;
-
-        const whatsappURL = `https://api.whatsapp.com/send?phone=5587988664802&text=${encodeURIComponent(mensagem)}`;
-        window.open(whatsappURL, "_blank");
-      });
-    };
+      const numero = "5587988664802";
+      const mensagem = `Olá! Quero alugar:%0A- ${encodeURIComponent(produto)}: R$ ${preco.toFixed(2)}%0A%0ANome: ${encodeURIComponent(nome)}%0AEndereço: ${encodeURIComponent(endereco)}%0AData do evento: ${encodeURIComponent(data)}`;
+      window.open(`https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`, '_blank');
+    });
   </script>
 </body>
 </html>
