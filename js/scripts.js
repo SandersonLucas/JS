@@ -15,7 +15,7 @@ window.onload = function () {
   });
 
   // Carrega produtos
-  fetch('produtos.json')
+  fetch('https://sandersonlucas.github.io/JS/produtos.json')
     .then(response => response.json())
     .then(produtos => {
       produtos.sort((a, b) => a.nome.localeCompare(b.nome));
@@ -49,54 +49,6 @@ window.onload = function () {
     .catch(error => console.error('Erro ao carregar produtos:', error));
 };
 
-  const htmlResumo = `
-    <html>
-      <head>
-        <title>Resumo do Pedido - JS Eventos</title>
-        <style>
-          body { font-family: Arial, sans-serif; padding: 20px; background: #f0f4f8; color: #333; }
-          h1 { color: #27ae60; }
-          .resumo { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-          p { font-size: 18px; line-height: 1.4; }
-          .botao-whatsapp {
-            display: inline-block;
-            margin-top: 20px;
-            background-color: #25d366;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>Resumo do Pedido</h1>
-        <div class="resumo">
-          <p><strong>Produto:</strong> ${produto}</p>
-          <p><strong>Preço:</strong> R$ ${preco.toFixed(2)}</p>
-          <p><strong>Nome:</strong> ${nome}</p>
-          <p><strong>Endereço:</strong> ${endereco}</p>
-          <p><strong>Data do Evento:</strong> ${dataEvento}</p>
-
-          <a 
-            href="https://api.whatsapp.com/send?phone=5587988664802&text=Olá! Quero alugar:%0A- ${encodeURIComponent(produto)}: R$ ${preco.toFixed(2)}%0A%0ANome: ${encodeURIComponent(nome)}%0AEndereço: ${encodeURIComponent(endereco)}%0AData do evento: ${encodeURIComponent(dataEvento)}" 
-            target="_blank" 
-            class="botao-whatsapp"
-          >
-            Finalizar pedido no WhatsApp
-          </a>
-        </div>
-      </body>
-    </html>
-  `;
-
-  const novaJanela = window.open('', '_blank');
-  if (!novaJanela) {
-    alert('Pop-up bloqueado! Por favor, permita pop-ups para este site.');
-    return;
-  }
   novaJanela.document.write(htmlResumo);
   novaJanela.document.close();
 }
