@@ -1,7 +1,10 @@
 window.onload = function () {
   // Define data mínima para o evento
   const hoje = new Date().toISOString().split("T")[0];
-  document.getElementById("dataEvento").setAttribute("min", hoje);
+  const dataInput = document.getElementById("dataEvento");
+  if (dataInput) {
+    dataInput.setAttribute("min", hoje);
+  }
 
   // Campo de busca
   document.getElementById('busca-produto').addEventListener('input', function () {
@@ -36,11 +39,10 @@ window.onload = function () {
         // Botão "Alugar" com evento
         const botao = document.createElement('button');
         botao.innerHTML = '<i class="fa-solid fa-bag-shopping"></i> Alugar';
-       botao.addEventListener('click', () => {
-       const url = `pedido.html?produto=${encodeURIComponent(produto.nome)}&preco=${encodeURIComponent(produto.preco)}`;
-       window.open(url, '_blank');
-       });
-
+        botao.addEventListener('click', () => {
+          const url = `pedido.html?produto=${encodeURIComponent(produto.nome)}&preco=${encodeURIComponent(produto.preco)}`;
+          window.open(url, '_blank');
+        });
 
         div.appendChild(botao);
         container.appendChild(div);
@@ -49,11 +51,7 @@ window.onload = function () {
     .catch(error => console.error('Erro ao carregar produtos:', error));
 };
 
-  novaJanela.document.write(htmlResumo);
-  novaJanela.document.close();
-}
-
-// Funções para modal de imagem (sem alteração)
+// Funções para modal de imagem
 function ampliarImagem(src) {
   const modal = document.getElementById('modal');
   const imgAmpliada = document.getElementById('imagem-ampliada');
