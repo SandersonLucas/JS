@@ -32,6 +32,15 @@
       margin: 20px auto;
     }
 
+    .resumo img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      object-fit: cover;
+      aspect-ratio: 1 / 1;
+    }
+
     label {
       display: block;
       margin-top: 12px;
@@ -103,54 +112,7 @@
 
   <a href="index.html" class="botao-voltar">← Voltar ao Catálogo</a>
 
-  <script>
-    // Função para pegar parâmetro da URL
-    function getQueryParam(param) {
-      const params = new URLSearchParams(window.location.search);
-      return params.get(param);
-    }
-
-    // Captura dados do produto e preço, com fallback
-    const produto = getQueryParam('produto') || 'Produto não especificado';
-    const precoParam = getQueryParam('preco');
-    const preco = precoParam ? parseFloat(precoParam) : 0;
-
-    // Exibe resumo do pedido
-    const resumoDiv = document.getElementById('resumo-produto');
-    resumoDiv.innerHTML = `<p><strong>Produto:</strong> ${produto}</p><p><strong>Preço:</strong> R$ ${preco.toFixed(2)}</p>`;
-
-    // Define data mínima para o campo dataEvento
-    const hoje = new Date().toISOString().split('T')[0];
-    document.getElementById('dataEvento').setAttribute('min', hoje);
-
-    // Ao enviar o formulário
-    document.getElementById('form-pedido').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const nome = document.getElementById('nome').value.trim();
-      const endereco = document.getElementById('endereco').value.trim();
-      const dataEvento = document.getElementById('dataEvento').value;
-
-      if (!nome || !endereco || !dataEvento) {
-        alert('Por favor, preencha todos os campos.');
-        return;
-      }
-
-      // Monta a mensagem completa e codificada para WhatsApp
-      const textoMensagem =
-        `Olá! Quero alugar:\n- ${produto}: R$ ${preco.toFixed(2)}\n\n` +
-        `Nome: ${nome}\nEndereço: ${endereco}\nData do evento: ${dataEvento}`;
-
-      const mensagem = encodeURIComponent(textoMensagem);
-
-      const numero = '5587988664802';
-
-      const urlWhatsapp = `https://api.whatsapp.com/send?phone=${numero}&text=${mensagem}`;
-
-      // Abre WhatsApp em nova aba
-      window.open(urlWhatsapp, '_blank');
-    });
-  </script>
+  <script src="pedido.js"></script>
 
 </body>
 </html>
