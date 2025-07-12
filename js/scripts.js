@@ -33,7 +33,7 @@ window.onload = function () {
         div.innerHTML = `
           <img src="${produto.imagem}" alt="${produto.nome}" onclick="ampliarImagem('${produto.imagem}')">
           <p class="nome-produto">${produto.nome}</p>
-          <p class="preco-produto">R$ ${produto.preco.toFixed(2)}</p>
+          <p class="preco-produto">R$ ${parseFloat(produto.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
         `;
 
         // Botão "Alugar" com evento
