@@ -15,7 +15,7 @@ const resumoDiv = document.getElementById('resumo-produto');
 resumoDiv.innerHTML = `
   <img src="${imagem}" alt="${produto}" />
   <p><strong>Produto:</strong> ${produto}</p>
-  <p><strong>Preço:</strong> R$ ${preco.toFixed(2)}</p>
+  <p><strong>Preço:</strong> R$ ${parseFloat(produto.preco).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
 `;
 
 // Define data mínima
