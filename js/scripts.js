@@ -40,7 +40,7 @@ window.onload = function () {
         const botao = document.createElement('button');
         botao.innerHTML = '<i class="fa-solid fa-bag-shopping"></i> Alugar';
         botao.addEventListener('click', () => {
-          const url = `pedido.html?produto=${encodeURIComponent(produto.nome)}&preco=${encodeURIComponent(produto.preco)}`;
+          const url = `pedido.html?produto=${encodeURIComponent(produto.nome)}&preco=${encodeURIComponent(produto.preco)}&imagem=${encodeURIComponent(produto.imagem)}`;
           window.open(url, '_blank');
         });
 
