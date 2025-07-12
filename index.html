@@ -10,7 +10,6 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/estilos.css">
-
 </head>
 <body>
 
@@ -20,37 +19,36 @@
 
   <div class="contato">
     <div class="container">
-       <p class="no-break">
-      <i class="fa-solid fa-phone"></i> (87) 98866-4802 &nbsp; | &nbsp;
-      <i class="fa-solid fa-location-dot"></i> Dom Avelar, Petrolina/PE
-    </p>
+      <p class="no-break">
+        <i class="fa-solid fa-phone"></i> (87) 98866-4802 &nbsp; | &nbsp;
+        <i class="fa-solid fa-location-dot"></i> Dom Avelar, Petrolina/PE
+      </p>
     </div>
   </div>
 
   <div class="container">
     <h2>Catálogo</h2>
 
-   <div style="position: relative; width: 100%;">
-  <i class="fa-solid fa-magnifying-glass" 
-     style="position: absolute; left: 10px; top: 42%; transform: translateY(-50%); color: #999; z-index: 2; pointer-events: none;"></i>
-  <input
-    type="text"
-    id="busca-produto"
-    placeholder="O que você está procurando?"
-    style="width: 100%; padding: 10px 10px 10px 35px; margin-bottom: 12px; border-radius: 8px; border: 1px solid #ccc; position: relative; z-index: 1;"
-  >
-</div>
-
-    <div class="produtos-grid">
-
+    <div style="position: relative; width: 100%;">
+      <i class="fa-solid fa-magnifying-glass" 
+         style="position: absolute; left: 10px; top: 42%; transform: translateY(-50%); color: #999; z-index: 2; pointer-events: none;"></i>
+      <input
+        type="text"
+        id="busca-produto"
+        placeholder="O que você está procurando?"
+        style="width: 100%; padding: 10px 10px 10px 35px; margin-bottom: 12px; border-radius: 8px; border: 1px solid #ccc; position: relative; z-index: 1;"
+      >
     </div>
-    
- <script src="js/scripts.js" defer></script>
 
-<div id="modal" style="display:none;" onclick="fecharModal()">
-  <img id="imagem-ampliada" src="" alt="Imagem ampliada">
-  <button id="fechar-btn" onclick="fecharModal(event)">Fechar</button>
-</div>
+    <div class="produtos-grid"></div>
+  </div>
+
+  <script src="js/scripts.js" defer></script>
+
+  <div id="modal" style="display:none;" onclick="fecharModal()">
+    <img id="imagem-ampliada" src="" alt="Imagem ampliada">
+    <button id="fechar-btn" onclick="fecharModal(event)">Fechar</button>
+  </div>
 
 </body>
 </html>
