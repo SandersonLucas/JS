@@ -62,7 +62,7 @@ h2 {
   width: 100%;
   position: relative;
   top: -10px;
-  border-radius: 8px;
+  border-radius: 0; /* <- ESSENCIAL para ir até a borda */
   z-index: 998;
 }
 
